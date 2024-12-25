@@ -42,3 +42,37 @@ function playRound(human, computer) {
 }
 
 // console.log(getHumanChoice());
+
+function playGame() {
+  console.log(`Let's play Rock-Paper-Scissors.`);
+
+  while (humanScore !== 5 && computerScore !== 5) {
+    human = getHumanChoice();
+    computer = getComputerChoice();
+
+    if (human !== "rock" && human !== "paper" && human !== "scissors") {
+      console.log("Please enter a choice between rock paper or scissors");
+      continue;
+    } else {
+      playRound(human, computer);
+
+      switch (winHumanOrComputer) {
+        case "human":
+          humanScore++;
+          break;
+
+        case "computer":
+          computerScore++;
+          break;
+      }
+    }
+
+    console.log(`SCORES => Human: ${humanScore} | Computer: ${computerScore}`);
+  }
+
+  if (winHumanOrComputer === "human") {
+    console.log("CONGRATS! You won the game!");
+  } else if (winHumanOrComputer === "computer") {
+    console.log("Too bad, you lose.");
+  }
+}
