@@ -1,78 +1,45 @@
-console.log("Hello World!");
+/*
+PSUEDOCODE:
 
-const gameChoices = ["rock", "paper", "scissors"];
-let humanScore = 0;
-let computerScore = 0;
+1. user clicks on one button rock paper scissors
+2. computer makes one random choice on click
+3. check the choices and score user or computer
+*/
 
-let winHumanOrComputer;
+let user, computer;
 
-function getComputerChoice() {
-  let computerChoice = Math.floor(Math.random() * 3);
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
 
-  return gameChoices[computerChoice];
+let userScore, computerScore;
+let choice = document.querySelector("#option");
+const gameChoices = [rock, paper, scissors];
+
+choice.addEventListener("click", function (e) {
+  const option = e.target;
+  const computer = computerChoice();
+});
+
+function computerChoice() {
+  const comp = Math.floor(Math.random() * 3);
+  return gameChoices[comp];
 }
 
-// console.log(getComputerChoice());
-
-function getHumanChoice() {
-  let humanChoice = prompt("Pick one from 'Rock' 'Paper' and 'Scissors'.");
-  return humanChoice.toLowerCase();
-}
-
-function playRound(human, computer) {
-  if (human === computer) {
-    console.log(`Draw! You both chose ${human}`);
-    winHumanOrComputer = "none";
-    return;
+function playRound(user, computer) {
+  if (user === computer) {
+    return "draw";
   }
 
   for (let i = 0; i < 3; i++) {
-    if (human === gameChoices[i]) {
+    if (user === gameChoices[i]) {
       if (computer === gameChoices[(i + 1) % 3]) {
-        console.log(`Loss! ${computer} beats ${human}`);
-        winHumanOrComputer = "computer";
-        return;
+        console.log(`Loss! ${computer} beats ${user}`);
+        return "computer";
       } else if (computer === gameChoices[(i + 2) % 3]) {
-        console.log(`Win! ${human} beats ${computer}`);
-        winHumanOrComputer = "human";
-        return;
+        console.log(`Win! ${user} beats ${computer}`);
+        return "user";
       }
     }
-  }
-}
-
-// console.log(getHumanChoice());
-
-function playGame() {
-  console.log(`Let's play Rock-Paper-Scissors.`);
-
-  while (humanScore !== 5 && computerScore !== 5) {
-    human = getHumanChoice();
-    computer = getComputerChoice();
-
-    if (human !== "rock" && human !== "paper" && human !== "scissors") {
-      console.log("Please enter a choice between rock paper or scissors");
-      continue;
-    } else {
-      playRound(human, computer);
-
-      switch (winHumanOrComputer) {
-        case "human":
-          humanScore++;
-          break;
-
-        case "computer":
-          computerScore++;
-          break;
-      }
-    }
-
-    console.log(`SCORES => Human: ${humanScore} | Computer: ${computerScore}`);
-  }
-
-  if (winHumanOrComputer === "human") {
-    console.log("CONGRATS! You won the game!");
-  } else if (winHumanOrComputer === "computer") {
-    console.log("Too bad, you lose.");
   }
 }

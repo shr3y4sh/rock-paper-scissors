@@ -6,6 +6,50 @@
     <title>Rock Paper Scissors</title>
   </head>
   <body>
-    <script src="script.js"></script>
+    <div id="intro">
+      <h1>Welcome to Rock-Paper-Scissors by Shreyash</h1>
+      <p>
+        I probably won't have to tell you the rules of this game but for people
+        living under the rock (wink) here you go:
+      </p>
+      <ul>
+        <li>There are two players in this game, you and me</li>
+        <li>
+          You will have to select on of Rock Paper Scissors (in your mind)
+        </li>
+        <li>I will do the same</li>
+        <li>We will both shout our choices at the same time.</li>
+        <li>
+          <span>Now depending on our choices following applies</span>
+          <ul>
+            <li>Rock smashes Scissors: Rock wins</li>
+            <li>Scissors cuts Paper: Scissors win</li>
+            <li>Paper wraps Rock: Paper wins</li>
+          </ul>
+        </li>
+        <li>We note down the winner and points, onto next round</li>
+        <li>
+          Process repeats. The player who scores 5 points first, wins the game.
+        </li>
+      </ul>
+    </div>
+
+    <div id="choice">
+      <h2>Choose:</h2>
+      <h3>Rock Paper or Scissors</h3>
+      <div id="option">
+        <button id="rock" type="button">Rock</button>
+        <button id="paper" type="button">Paper</button>
+        <button id="scissors" type="button">Scissors</button>
+      </div>
+    </div>
+    <div id="game">
+      <div id="user-choice"></div>
+      <div id="computer-choice"></div>
+    </div>
+    <div id="score">
+      <ul id="score-list"></ul>
+    </div>
+    <!-- <script src="script.js"></script> -->
   </body>
 </html>
