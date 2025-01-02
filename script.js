@@ -2,31 +2,31 @@
 PSUEDOCODE:
 
 1. user clicks on one button rock paper scissors
-2. computer makes one random choice on click
-3. check the choices and score user or computer
-4. make outcome choice, append it on html
+2. computer makes one random option on click
+3. check the options and score user or computer
+4. make outcome option, append it on html
 5. if win => user++; loss => computer++ draw nothing;
 */
 
 let user = {
-  name: "YOU",
+  choice: "none",
   score: 0,
 };
 
 let computer = {
-  name: "I",
+  choice: "none",
   score: 0,
 };
 
-let choice = document.querySelector("#option");
+let gameSection = document.querySelector("#choice");
+let choiceButtons = document.querySelector("#option");
 let scoreList = document.querySelector("#score-list");
-let final = document.querySelector("#final");
 
-const gameChoices = ["Rock", "Paper", "Scissors"];
+const gameChoice = ["Rock", "Paper", "Scissors"];
 
-choice.addEventListener("click", function (e) {
+choiceButtons.addEventListener("click", function (e) {
   user.choice = e.target.textContent;
-  computer.choice = computerChoice();
+  computer.choice = compChoice();
 
   document.querySelector("#user-choice").textContent =
     "YOU: " + user.choice.toUpperCase();
@@ -37,44 +37,25 @@ choice.addEventListener("click", function (e) {
   displayScore(user, computer);
 
   if (user.score === 5 || computer.score === 5) {
-    const winner = scoreEval(user, computer);
-    const verdict = document.createElement("h1");
-    verdict.textContent = "GAME OVER";
-    final.insertBefore(verdict, scoreList);
-    verdict = document.createElement("h2");
-    verdict.textContent = `${winner.name} WON`;
-    final.insertBefore(verdict, scoreList);
-    choice.remove();
+    finalVerdict(user, computer);
   }
 });
 
-function scoreEval(user, computer) {
-  if (user.score > computer.score) {
-    return user;
-  } else if (user.score < computer.score) {
-    return computer.textContent;
-  }
-}
-
-function computerChoice() {
+function compChoice() {
   const comp = Math.floor(Math.random() * 3);
-  return gameChoices[comp];
+  return gameChoice[comp];
 }
 
 function playRound(user, computer) {
-  console.log("round played");
-  console.log(user.choice);
-  console.log(computer.choice);
-
   if (user.choice === computer.choice) {
     return;
   }
 
   for (let i = 0; i < 3; i++) {
-    if (user.choice === gameChoices[i]) {
-      if (computer.choice === gameChoices[(i + 1) % 3]) {
+    if (user.choice === gameChoice[i]) {
+      if (computer.choice === gameChoice[(i + 1) % 3]) {
         computer.score++;
-      } else if (computer.choice === gameChoices[(i + 2) % 3]) {
+      } else if (computer.choice === gameChoice[(i + 2) % 3]) {
         user.score++;
       }
     }
@@ -86,4 +67,31 @@ function displayScore(user, computer) {
 
   list.textContent = `YOUR SCORE: ${user.score}  MY SCORE: ${computer.score}`;
   scoreList.insertBefore(list, scoreList.childNodes[0]);
+}
+
+function finalVerdict(user, computer) {
+  let victory;
+  if (user.score > computer.score) {
+    victory = "You Won! Congrats";
+  } else {
+    victory = "Alas, you lost this game";
+  }
+  const gameOver = document.createElement("h2");
+  gameOver.textContent = "Game Over";
+
+  const verdict = document.createElement("h3");
+  verdict.textContent = victory;
+
+  const playAgain = document.createElement("button");
+  playAgain.setAttribute("type", "button");
+  playAgain.textContent = "Play Again?";
+
+  choiceButtons.remove();
+  gameSection.appendChild(gameOver);
+  gameSection.appendChild(verdict);
+  gameSection.appendChild(playAgain);
+
+  playAgain.addEventListener("click", () => {
+    location.reload();
+  });
 }
